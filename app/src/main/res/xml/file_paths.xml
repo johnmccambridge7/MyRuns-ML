@@ -1,0 +1,6 @@
+<paths>
+    <external-path
+        name="/storage/emulated/0"
+        path="."/>
+    <external-files-path name="my_images" path="/" />
+</paths>

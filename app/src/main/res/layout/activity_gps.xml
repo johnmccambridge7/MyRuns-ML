@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".GPSActivity">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/avgSpeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#99FFFFFF"
+                    android:padding="10dp"
+                    android:text="Avg. Speed: 5.03 m/h" />
+
+                <TextView
+                    android:id="@+id/currentSpeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#99FFFFFF"
+                    android:padding="10dp"
+                    android:text="Curr. Speed: 2.80 m/h" />
+
+                <TextView
+                    android:id="@+id/distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#99FFFFFF"
+                    android:padding="10dp"
+                    android:text="Distance: 0.03 Miles" />
+
+                <TextView
+                    android:id="@+id/activityType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#99FFFFFF"
+                    android:padding="10dp"
+                    android:text="Type: Running" />
+
+                <TextView
+                    android:id="@+id/calories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#99FFFFFF"
+                    android:padding="10dp"
+                    android:text="Calories: 0" />
+
+                <TextView
+                    android:id="@+id/climb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#99FFFFFF"
+                    android:padding="10dp"
+                    android:text="Climb: 0.09 miles" />
+
+                <Button
+                    android:id="@+id/deleteGPS"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="right"
+                    android:onClick="deleteGPSEntry"
+                    android:text="@string/Delete" />
+
+            </LinearLayout>
+        </fragment>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/saveGPS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/save"
+            android:onClick="save"/>
+
+        <Button
+            android:id="@+id/cancelGPS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="cancel"
+            android:text="@android:string/cancel" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,52 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:key="account_prefs"
+        app:title="Account Preferences">
+
+        <Preference
+            app:key="profile"
+            app:summary="Names, Email, Class, etc."
+            app:title="User Profile">
+            <intent android:action="editProfile"/>
+        </Preference>
+
+        <CheckBoxPreference
+            app:key="privacy"
+            app:summary="Posting your records anonymously"
+            app:title="Privacy Enabled"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="add_settings"
+        app:title="Additional Settings">
+
+        <Preference
+            app:key="unit"
+            app:summary="Select imperial or metric units."
+            app:title="Unit Preference"/>
+
+        <Preference
+            app:key="comment"
+            app:summary="Any suggestion to this course?"
+            app:title="Comment"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="add_settings"
+        app:title="Misc.">
+
+        <Preference
+            app:key="webpage"
+            app:summary="http://web.ca.dartmouth.edu/"
+            app:title="Webpage">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="http://web.ca.dartmouth.edu/" />
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

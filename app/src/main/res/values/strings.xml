@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">MyRuns</string>
+    <string name="save">Save</string>
+    <string name="Delete">Delete</string>
+
+    <string-array name="inputTypes">
+        <item>GPS</item>
+        <item>Manual Input</item>
+        <item>Automatic</item>
+    </string-array>
+
+    <string-array name="activityTypes">
+        <item>Running</item>
+        <item>Walking</item>
+    </string-array>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <string name="username">usernameField</string>
+    <string name="phone">phoneField</string>
+    <string name="email">emailField</string>
+    <string name="profileImagePath">profilePicture.jpg</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="major">Major</string>
+    <string name="information">Information</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="emailAddress">Email Address</string>
+    <string name="yourName">Your name here…</string>
+    <string name="Change">Change</string>
+    <string name="Profile">Profile</string>
+    <string name="year">Year</string>
+    <string name="ui_profile_photo_picker_title">"Select profile image"</string>
+    <string name="profile_image_file_name">profile_image</string>
+
+    <string-array name="ui_profile_photo_picker_items">
+        <item>Take picture from camera.</item>
+        <item>Select from gallery.</item>
+    </string-array>
+    <string name="title_activity_gps">Map</string>
+
+</resources>
