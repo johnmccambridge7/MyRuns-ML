@@ -104,6 +104,9 @@ public class Start extends Fragment {
                 break;
             case AUTOMATIC:
                 i = new Intent(getActivity(), GPSActivity.class);
+                i.putExtra("activityType", "Unknown");
+                i.putExtra("units", this.unit);
+                i.putExtra("startService", true);
                 startActivity(i);
                 break;
         }

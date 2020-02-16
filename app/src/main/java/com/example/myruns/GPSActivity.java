@@ -14,6 +14,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +43,7 @@ import org.w3c.dom.Text;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 // todo:
@@ -71,6 +76,7 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
     private ArrayList<LatLng> polygon;
     private ArrayList<Heights> heights;
     private ArrayList<Timestamps> timestamps;
+    private ArrayList<Double> featureVector;
 
     private double startingHeight;
     private double currentSpeedValue;
@@ -141,10 +147,10 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
             cancel.setVisibility(View.VISIBLE);
         }
 
-        //locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         polygon = new ArrayList<LatLng>();
         heights = new ArrayList<Heights>();
         timestamps = new ArrayList<Timestamps>();
+        featureVector = new ArrayList<Double>();
 
         locationReceiver = new LocationReceiver();
 
@@ -166,7 +172,13 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
             startService(intent);
             IntentFilter filter = new IntentFilter(LocationService.ACTION_NEW_LOCATION);
             LocalBroadcastManager.getInstance(this).registerReceiver(locationReceiver, filter);
-            message("Starting service...");
+        }
+
+        if(this.activityTypeData.equals("Unknown")) {
+            // start classification model
+            Intent intent = new Intent(this, ClassificationService.class);
+            startService(intent);
+            message("Classification Model...");
         }
 
         if(savedInstanceState != null) {
@@ -398,8 +410,6 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
      * installed Google Play services and returned to the app.
      */
     // add delete button
-
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -574,17 +584,17 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
             double startTime = this.timestamps.get(this.timestamps.size() - 2).getStamp();
             double endTime = this.timestamps.get(this.timestamps.size() - 1).getStamp();
 
-            LatLng previousCoord = this.polygon.get(this.polygon.size() - 2);
+            LatLng previousCoord = this.polygon.get(this.polygon.size() - 1);
 
             float[] results = new float[3];
             Location.distanceBetween(currentCoord.latitude, currentCoord.longitude, previousCoord.latitude, previousCoord.longitude, results);
 
-            double distance = results[0];
+            double distance = Math.max(results[0], 0.01);
 
             double deltaSeconds = (endTime - startTime) / 1000f;
 
             if(deltaSeconds == 0) {
-                return 0.0;
+                return -1.0;
             }
 
             return distance / deltaSeconds;
