@@ -42,6 +42,7 @@
             android:label="@string/title_activity_gps">
             <intent-filter>
                 <action android:name="com.example.action.NEW_LOCATION" />
+                <action android:name="com.example.action.NEW_CLASSIFICATION" />
             </intent-filter>
         </activity>
         <activity android:name=".EditProfileActivity">
@@ -72,6 +73,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
         <service android:name=".LocationService"/>
+        <service android:name=".ClassificationService"/>
     </application>
 
 </manifest>
