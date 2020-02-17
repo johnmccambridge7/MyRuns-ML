@@ -61,6 +61,8 @@ public class ClassificationService extends Service implements SensorEventListene
         receiver = new ClassificationServiceReceiver();
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
+        Log.d("johnmacdonald", "Hello from Classification Service!");
+
         IntentFilter filter = new IntentFilter();
         filter.addAction(STOP_SERVICE_ACTION);
         registerReceiver(receiver, filter);
@@ -69,10 +71,10 @@ public class ClassificationService extends Service implements SensorEventListene
     public class ClassificationServiceReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            stopSelf();
-            notificationManager.cancel(NOTIFY_ID);
-            Log.d("johnmacdonald", "cancelling ml");
-            unregisterReceiver(receiver);
+            //stopSelf();
+            //notificationManager.cancel(NOTIFY_ID);
+            Log.d("johnmacdonald", "lol cancelling ml");
+            //unregisterReceiver(receiver);
         }
     }
 
@@ -82,7 +84,7 @@ public class ClassificationService extends Service implements SensorEventListene
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
-        Log.d("johnmacdonald", "Starting sensor...");
+        Log.d("johnmacdonald", "Starting Classification Sensor...");
 
         ArrayList<Attribute> attributes = new ArrayList<Attribute>();
 

@@ -183,9 +183,10 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
             // start classification model
             Intent intent = new Intent(this, ClassificationService.class);
             startService(intent);
+            Log.d("johnmacdonald", "Starting Classification Service.");
             IntentFilter filter = new IntentFilter(ClassificationService.ACTION_NEW_CLASSIFICATION);
             LocalBroadcastManager.getInstance(this).registerReceiver(classificationReceiver, filter);
-            message("Classification Model...");
+            message("Starting Classification Model...");
         }
 
         if(savedInstanceState != null) {
@@ -548,9 +549,11 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
                 selectedType = "Running";
             }
 
+            Log.d("johnmacdonald", "###");
             Log.d("johnmacdonald", "Running: " + String.valueOf(running));
             Log.d("johnmacdonald", "Walking: " + String.valueOf(walking));
             Log.d("johnmacdonald", "Standing: " + String.valueOf(standing));
+            Log.d("johnmacdonald", "###");
 
             String activityString = "Type: " + selectedType;
             activityType.setText(activityString);

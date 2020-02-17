@@ -14,15 +14,11 @@
     <list default="true" id="4d2d8f4f-b13d-4229-bb3f-df9e7395e50f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileContent/fileContent.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myruns/ClassificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myruns/ClassificationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myruns/GPSActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myruns/GPSActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myruns/WekaClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myruns/WekaClassifier.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,11 +39,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myruns/GPSActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="190" column="40" selection-start-line="190" selection-start-column="40" selection-end-line="190" selection-end-column="40" />
+            <state relative-caret-position="-399">
+              <caret line="193" column="59" lean-forward="true" selection-start-line="193" selection-start-column="59" selection-end-line="193" selection-end-column="59" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#10451#12529#0" expanded="true" />
+                <element signature="e#12034#12452#0" expanded="true" />
+                <element signature="e#12451#12452#0" expanded="true" />
+                <element signature="e#12528#12529#0" expanded="true" />
+                <element signature="e#13509#14092#0" expanded="true" />
+                <element signature="e#13675#14066#0" expanded="true" />
+                <element signature="e#14065#14066#0" expanded="true" />
+                <element signature="e#14091#14092#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -61,13 +68,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myruns/ClassificationService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="123" column="36" lean-forward="true" selection-start-line="123" selection-start-column="36" selection-end-line="123" selection-end-column="36" />
+            <state relative-caret-position="552">
+              <caret line="86" column="62" selection-start-line="86" selection-start-column="62" selection-end-line="86" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#5226#5234#0" expanded="true" />
+                <element signature="e#6662#6670#0" expanded="true" />
                 <element signature="method#onAccuracyChanged#0;class#ClassificationService#0" />
               </folding>
             </state>
@@ -96,7 +105,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myruns/WekaClassifier.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2158">
+            <state relative-caret-position="1326">
               <caret line="83" column="1" selection-start-line="83" selection-start-column="1" selection-end-line="83" selection-end-column="1" />
             </state>
           </provider>
@@ -143,19 +152,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>activityTy</find>
-      <find>Dense</find>
-      <find>sensor</find>
-      <find>stop</find>
-      <find>end</find>
-      <find>endML</find>
       <find>STOP_SERVICE_AC</find>
       <find>inputType</find>
       <find>notifica</find>
       <find>NEW_LOCA</find>
       <find>registerRe</find>
       <find>ACTION_NEW_LOC</find>
-      <find>startService</find>
       <find>stopSer</find>
       <find>filter</find>
       <find>Receiver</find>
@@ -170,9 +172,16 @@
       <find>ClassificationSer</find>
       <find>mag:</find>
       <find>Classification</find>
+      <find>bundle</find>
+      <find>cancelling</find>
+      <find>running:</find>
+      <find>model</find>
+      <find>stopSelf</find>
+      <find>startService</find>
+      <find>cancelling</find>
+      <find>ClassificationServiceReceiver</find>
       <find>dataset</find>
       <find>cancel</find>
-      <find>bundle</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -188,8 +197,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myruns/LocationService.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myruns/WekaClassifier.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/myruns/ClassificationService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myruns/GPSActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/myruns/ClassificationService.java" />
       </list>
     </option>
   </component>
@@ -427,22 +436,22 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Find" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.32924962" />
-      <window_info anchor="bottom" id="Logcat" order="1" weight="0.39433384" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.4984051" visible="true" weight="0.34150076" />
+      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49880382" weight="0.39433384" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32924962" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32924962" />
-      <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5015949" side_tool="true" visible="true" weight="0.34150076" />
       <window_info anchor="bottom" id="Version Control" order="6" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.3284839" />
-      <window_info anchor="bottom" id="Android Profiler" order="8" weight="0.32924962" />
-      <window_info anchor="right" id="Assistant" weight="0.32974482" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" sideWeight="0.49960127" weight="0.32924962" />
+      <window_info anchor="bottom" id="Find" order="9" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Assistant" order="5" weight="0.32974482" />
     </layout>
   </component>
   <component name="editorHistoryManager">
@@ -487,19 +496,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myruns/WekaClassifier.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2158">
+        <state relative-caret-position="1326">
           <caret line="83" column="1" selection-start-line="83" selection-start-column="1" selection-end-line="83" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myruns/ClassificationService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="123" column="36" lean-forward="true" selection-start-line="123" selection-start-column="36" selection-end-line="123" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#onAccuracyChanged#0;class#ClassificationService#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -510,10 +508,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-29/android.jar!/android/location/Location.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#6026#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myruns/GPSActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="190" column="40" selection-start-line="190" selection-start-column="40" selection-end-line="190" selection-end-column="40" />
+        <state relative-caret-position="-399">
+          <caret line="193" column="59" lean-forward="true" selection-start-line="193" selection-start-column="59" selection-end-line="193" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#10451#12529#0" expanded="true" />
+            <element signature="e#12034#12452#0" expanded="true" />
+            <element signature="e#12451#12452#0" expanded="true" />
+            <element signature="e#12528#12529#0" expanded="true" />
+            <element signature="e#13509#14092#0" expanded="true" />
+            <element signature="e#13675#14066#0" expanded="true" />
+            <element signature="e#14065#14066#0" expanded="true" />
+            <element signature="e#14091#14092#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myruns/ClassificationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="86" column="62" selection-start-line="86" selection-start-column="62" selection-end-line="86" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5226#5234#0" expanded="true" />
+            <element signature="e#6662#6670#0" expanded="true" />
+            <element signature="method#onAccuracyChanged#0;class#ClassificationService#0" />
+          </folding>
         </state>
       </provider>
     </entry>
