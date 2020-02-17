@@ -128,7 +128,7 @@ public class ClassificationService extends Service implements SensorEventListene
 
             double magnitude = Math.sqrt(x * x + y * y + z * z);
 
-            Log.d("johnmacdonald", "mag: " + String.valueOf(magnitude));
+            //Log.d("johnmacdonald", "mag: " + String.valueOf(magnitude));
 
             try {
                 buffer.add(Double.valueOf(magnitude));
@@ -198,9 +198,6 @@ public class ClassificationService extends Service implements SensorEventListene
                         Intent intent = new Intent(ACTION_NEW_CLASSIFICATION);
                         intent.putExtra("activity", activity);
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-
-                        Log.i("johnmacdonald", "New instance created!");
-                        Log.i("johnmacdonald", "output: " + model.classifyInstance(instance));
                     }
 
                 } catch (InterruptedException e) {
