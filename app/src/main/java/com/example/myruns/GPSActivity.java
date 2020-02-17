@@ -76,7 +76,10 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
     private ArrayList<LatLng> polygon;
     private ArrayList<Heights> heights;
     private ArrayList<Timestamps> timestamps;
-    private ArrayList<Double> featureVector;
+
+    private Integer walking = 0;
+    private Integer standing = 0;
+    private Integer running = 0;
 
     private double startingHeight;
     private double currentSpeedValue;
@@ -152,7 +155,6 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         polygon = new ArrayList<LatLng>();
         heights = new ArrayList<Heights>();
         timestamps = new ArrayList<Timestamps>();
-        featureVector = new ArrayList<Double>();
 
         locationReceiver = new LocationReceiver();
         classificationReceiver = new ClassificationReceiver();
@@ -187,6 +189,10 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         }
 
         if(savedInstanceState != null) {
+            running = savedInstanceState.getInt("running");
+            walking = savedInstanceState.getInt("walking");
+            standing = savedInstanceState.getInt("standing");
+
             polygon = savedInstanceState.getParcelableArrayList("points");
             heights = savedInstanceState.getParcelableArrayList("heights");
             timestamps = savedInstanceState.getParcelableArrayList("times");
@@ -233,7 +239,6 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
             caloriesBurnt = savedInstanceState.getInt("caloriesBurnt");
             String calorieString = "Calories: " + String.valueOf(caloriesBurnt) + " cals";
             calories.setText(calorieString);
-
         }
     }
 
@@ -252,6 +257,11 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         bundle.putDouble("currentSpeed", currentSpeedValue);
         bundle.putDouble("averageSpeed", avgSpeedValue);
         bundle.putInt("caloriesBurnt", caloriesBurnt);
+
+        bundle.putInt("running", running);
+        bundle.putInt("walking", walking);
+        bundle.putInt("standing", standing);
+
     }
 
     public void save(View view) {
@@ -513,7 +523,36 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         @Override
         public void onReceive(Context context, Intent intent) {
             String type = intent.getExtras().getString("activity");
-            String activityString = "Type: " + type;
+
+            if(type != null) {
+                if(type.equals("Standing")) {
+                    standing += 1;
+                } else if(type.equals("Walking")) {
+                    walking += 1;
+                } else if(type.equals("Running")) {
+                    running += 1;
+                }
+            }
+
+            String selectedType = "Deciding...";
+
+            if(standing > walking && standing > running) {
+                // choose standing
+                selectedType = "Standing";
+            }else if(walking > standing && walking > running) {
+                // choose standing
+                selectedType = "Walking";
+
+            } else if(running > standing && running > walking) {
+                // choose standing
+                selectedType = "Running";
+            }
+
+            Log.d("johnmacdonald", "Running: " + String.valueOf(running));
+            Log.d("johnmacdonald", "Walking: " + String.valueOf(walking));
+            Log.d("johnmacdonald", "Standing: " + String.valueOf(standing));
+
+            String activityString = "Type: " + selectedType;
             activityType.setText(activityString);
             activityTypeData = type;
         }
