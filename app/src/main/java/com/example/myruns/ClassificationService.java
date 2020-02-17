@@ -1,7 +1,11 @@
 package com.example.myruns;
 
+import android.app.NotificationManager;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,6 +21,7 @@ import java.util.Collections;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;
@@ -38,7 +43,13 @@ public class ClassificationService extends Service implements SensorEventListene
     public static final String FEAT_FFT_COEF_LABEL = "fft_coef_";
     public static final String FEAT_MAX_LABEL = "max";
     public static final String FEAT_SET_NAME = "accelerometer_features";
+    public static final String STOP_SERVICE_ACTION = "stop service action for ML";
+    public static final int NOTIFY_ID = 12;
+    ClassificationServiceReceiver receiver;
 
+    public static final String ACTION_NEW_CLASSIFICATION = "com.example.action.NEW_CLASSIFICATION";
+
+    NotificationManager notificationManager;
     private Sensor accelerometer;
 
     @Override
@@ -46,6 +57,23 @@ public class ClassificationService extends Service implements SensorEventListene
         super.onCreate();
         model = new WekaWrapper();
         buffer = new ArrayBlockingQueue<Double>(ACCELEROMETER_BUFFER_CAPACITY);
+
+        receiver = new ClassificationServiceReceiver();
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(STOP_SERVICE_ACTION);
+        registerReceiver(receiver, filter);
+    }
+
+    public class ClassificationServiceReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            stopSelf();
+            notificationManager.cancel(NOTIFY_ID);
+            Log.d("johnmacdonald", "cancelling ml");
+            unregisterReceiver(receiver);
+        }
     }
 
     @Override
@@ -118,7 +146,7 @@ public class ClassificationService extends Service implements SensorEventListene
         protected Void doInBackground(Void... arg0) {
             Instance instance = new DenseInstance(featureLength);
             instance.setDataset(dataset);
-            
+
             int blockSize = 0;
             FFT fft = new FFT(ACCELEROMETER_BLOCK_CAPACITY);
 
@@ -155,6 +183,21 @@ public class ClassificationService extends Service implements SensorEventListene
                         instance.setValue(ACCELEROMETER_BLOCK_CAPACITY, max);
 
                         dataset.add(instance);
+
+                        double classification = model.classifyInstance(instance);
+                        String activity = "Unknown";
+
+                        if(classification == 0) {
+                            activity = "Standing";
+                        } else if (classification == 1) {
+                            activity = "Walking";
+                        } else if (classification == 2) {
+                            activity = "Running";
+                        }
+
+                        Intent intent = new Intent(ACTION_NEW_CLASSIFICATION);
+                        intent.putExtra("activity", activity);
+                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 
                         Log.i("johnmacdonald", "New instance created!");
                         Log.i("johnmacdonald", "output: " + model.classifyInstance(instance));

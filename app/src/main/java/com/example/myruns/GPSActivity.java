@@ -85,6 +85,8 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
     private boolean runningStatic;
 
     private LocationReceiver locationReceiver;
+    private ClassificationReceiver classificationReceiver;
+
     EntryDataSource database;
 
     TextView avgSpeed;
@@ -153,6 +155,7 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         featureVector = new ArrayList<Double>();
 
         locationReceiver = new LocationReceiver();
+        classificationReceiver = new ClassificationReceiver();
 
         currentSpeedValue = 0.0;
         currentCoord = new LatLng(0,0);
@@ -178,6 +181,8 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
             // start classification model
             Intent intent = new Intent(this, ClassificationService.class);
             startService(intent);
+            IntentFilter filter = new IntentFilter(ClassificationService.ACTION_NEW_CLASSIFICATION);
+            LocalBroadcastManager.getInstance(this).registerReceiver(classificationReceiver, filter);
             message("Classification Model...");
         }
 
@@ -307,9 +312,13 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
                 e.printStackTrace();
             }
 
-            Intent i = new Intent();
-            i.setAction(LocationService.STOP_SERVICE_ACTION);
-            sendBroadcast(i);
+            Intent endLocation = new Intent();
+            endLocation.setAction(LocationService.STOP_SERVICE_ACTION);
+            sendBroadcast(endLocation);
+
+            Intent endML = new Intent();
+            endML.setAction(ClassificationService.STOP_SERVICE_ACTION);
+            sendBroadcast(endML);
             finish();
         }
     }
@@ -318,6 +327,10 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         Intent i = new Intent();
         i.setAction(LocationService.STOP_SERVICE_ACTION);
         sendBroadcast(i);
+
+        Intent endML = new Intent();
+        endML.setAction(ClassificationService.STOP_SERVICE_ACTION);
+        sendBroadcast(endML);
 
         finish();
     }
@@ -492,6 +505,17 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
 
             startingPin = addMarker(startingCoord, true);
             currentPin = addMarker(currentCoord, false);
+        }
+    }
+
+    public class ClassificationReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String type = intent.getExtras().getString("activity");
+            String activityString = "Type: " + type;
+            activityType.setText(activityString);
+            activityTypeData = type;
         }
     }
 

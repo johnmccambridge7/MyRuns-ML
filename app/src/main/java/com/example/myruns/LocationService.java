@@ -38,8 +38,6 @@ public class LocationService extends Service {
     public static final String STOP_SERVICE_ACTION = "stop service action";
     public static final String ACTION_NEW_LOCATION = "com.example.action.NEW_LOCATION";
 
-    private double distanceTravelled = 0.0;
-
     ServiceBroadcastReceiver receiver;
     NotificationManager notificationManager;
     LocationManager locationManager;
