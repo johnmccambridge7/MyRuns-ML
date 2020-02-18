@@ -135,8 +135,8 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         this.units = intentData.getString("units");
         this.activityTypeData = intentData.getString("activityType");
 
-        //String activity = "Type: " + this.activityTypeData;
-        //activityType.setText(activity);
+        String activity = "Type: " + this.activityTypeData;
+        activityType.setText(activity);
 
         Log.d("johnmacdonald", "onCreate: " + this.activityTypeData);
 
@@ -234,9 +234,6 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
             String activityString = "Type: " + savedInstanceState.getString("activity");
             activityType.setText(activityString);
             activityTypeData = savedInstanceState.getString("activity");
-            //Log.d("johnmacdonald", "SIS: " + activityType.getText().toString());
-            //Log.d("johnmacdonald", "SIS (data): " + activityTypeData);
-
             avgSpeedValue = savedInstanceState.getDouble("averageSpeed");
             String avgSpeedData = "Avg Speed: " + String.valueOf(avgSpeedValue / 60) + " " + suffix + "/h";
             avgSpeed.setText(avgSpeedData);
