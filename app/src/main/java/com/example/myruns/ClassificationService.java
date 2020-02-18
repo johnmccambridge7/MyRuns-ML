@@ -71,10 +71,10 @@ public class ClassificationService extends Service implements SensorEventListene
     public class ClassificationServiceReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //stopSelf();
-            //notificationManager.cancel(NOTIFY_ID);
+            stopSelf();
+            notificationManager.cancel(NOTIFY_ID);
             Log.d("johnmacdonald", "lol cancelling ml");
-            //unregisterReceiver(receiver);
+            unregisterReceiver(receiver);
         }
     }
 
@@ -115,10 +115,17 @@ public class ClassificationService extends Service implements SensorEventListene
         // index for classification
         dataset.setClassIndex(dataset.numAttributes() - 1);
 
+        // start new asyncTask
         asyncTask = new SensorUpdateTask();
         asyncTask.execute();
 
         return START_NOT_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d("johnmacdonald", "destroying service...");
+        asyncTask.cancel(true);
     }
 
     @Override
@@ -157,7 +164,7 @@ public class ClassificationService extends Service implements SensorEventListene
             double[] image = new double[ACCELEROMETER_BLOCK_CAPACITY];
             double max = Double.MIN_VALUE;
 
-            while(true) {
+            while(!isCancelled()) {
                 try {
                     accelerometerBlock[blockSize++] = buffer.take().doubleValue();
 
@@ -198,7 +205,7 @@ public class ClassificationService extends Service implements SensorEventListene
                         }
 
                         Intent intent = new Intent(ACTION_NEW_CLASSIFICATION);
-                        intent.putExtra("activity", activity);
+                        intent.putExtra("classifiedActivity", activity);
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                     }
 
@@ -208,6 +215,8 @@ public class ClassificationService extends Service implements SensorEventListene
                     e.printStackTrace();
                 }
             }
+
+            return null;
         }
     }
 

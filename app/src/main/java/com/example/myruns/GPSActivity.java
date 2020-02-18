@@ -45,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.logging.Handler;
 
 // todo:
 // 1. add background support. - DONE
@@ -64,6 +65,7 @@ System Design for Service:
 
 public class GPSActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private static GPSActivity instance;
     private GoogleMap mMap;
     public Marker currentPin;
     public Marker startingPin;
@@ -111,6 +113,7 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps);
 
+        instance = this;
         avgSpeed = (TextView) findViewById(R.id.avgSpeed);
         currentSpeed = (TextView) findViewById(R.id.currentSpeed);
         distance = (TextView) findViewById(R.id.distance);
@@ -132,8 +135,10 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         this.units = intentData.getString("units");
         this.activityTypeData = intentData.getString("activityType");
 
-        String activity = "Type: " + this.activityTypeData;
-        activityType.setText(activity);
+        //String activity = "Type: " + this.activityTypeData;
+        //activityType.setText(activity);
+
+        Log.d("johnmacdonald", "onCreate: " + this.activityTypeData);
 
         boolean startService = intentData.getBoolean("startService");
 
@@ -177,16 +182,16 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
             startService(intent);
             IntentFilter filter = new IntentFilter(LocationService.ACTION_NEW_LOCATION);
             LocalBroadcastManager.getInstance(this).registerReceiver(locationReceiver, filter);
-        }
 
-        if(this.activityTypeData.equals("Unknown")) {
-            // start classification model
-            Intent intent = new Intent(this, ClassificationService.class);
-            startService(intent);
-            Log.d("johnmacdonald", "Starting Classification Service.");
-            IntentFilter filter = new IntentFilter(ClassificationService.ACTION_NEW_CLASSIFICATION);
-            LocalBroadcastManager.getInstance(this).registerReceiver(classificationReceiver, filter);
-            message("Starting Classification Model...");
+            if(this.activityTypeData.equals("Unknown") && savedInstanceState == null) {
+                // start classification model
+                Intent MLIntent = new Intent(this, ClassificationService.class);
+                startService(MLIntent);
+                Log.d("johnmacdonald", "Starting Classification Service.");
+                IntentFilter MLFilter = new IntentFilter(ClassificationService.ACTION_NEW_CLASSIFICATION);
+                LocalBroadcastManager.getInstance(this).registerReceiver(classificationReceiver, MLFilter);
+                message("Starting Classification Model...");
+            }
         }
 
         if(savedInstanceState != null) {
@@ -228,6 +233,9 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
 
             String activityString = "Type: " + savedInstanceState.getString("activity");
             activityType.setText(activityString);
+            activityTypeData = savedInstanceState.getString("activity");
+            //Log.d("johnmacdonald", "SIS: " + activityType.getText().toString());
+            //Log.d("johnmacdonald", "SIS (data): " + activityTypeData);
 
             avgSpeedValue = savedInstanceState.getDouble("averageSpeed");
             String avgSpeedData = "Avg Speed: " + String.valueOf(avgSpeedValue / 60) + " " + suffix + "/h";
@@ -262,7 +270,6 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         bundle.putInt("running", running);
         bundle.putInt("walking", walking);
         bundle.putInt("standing", standing);
-
     }
 
     public void save(View view) {
@@ -519,11 +526,23 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
         }
     }
 
+    public void updateTheTextView(final String t) {
+        GPSActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                TextView activityType = (TextView) findViewById(R.id.activityType);
+                activityType.setText(t);
+            }
+        });
+    }
+    public static GPSActivity getInstance() {
+        return instance;
+    }
+
     public class ClassificationReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            String type = intent.getExtras().getString("activity");
+            final String type = intent.getExtras().getString("classifiedActivity");
 
             if(type != null) {
                 if(type.equals("Standing")) {
@@ -535,30 +554,48 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback 
                 }
             }
 
-            String selectedType = "Deciding...";
-
-            if(standing > walking && standing > running) {
-                // choose standing
-                selectedType = "Standing";
-            }else if(walking > standing && walking > running) {
-                // choose standing
-                selectedType = "Walking";
-
-            } else if(running > standing && running > walking) {
-                // choose standing
-                selectedType = "Running";
-            }
-
             Log.d("johnmacdonald", "###");
             Log.d("johnmacdonald", "Running: " + String.valueOf(running));
             Log.d("johnmacdonald", "Walking: " + String.valueOf(walking));
             Log.d("johnmacdonald", "Standing: " + String.valueOf(standing));
             Log.d("johnmacdonald", "###");
 
+            final String selectedType = getGoverningActivity();
+
+            Log.d("johnmacdonald", "Governing Activity: " + selectedType);
+
+            /*GPSActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    String activityString = "Type: " + selectedType;
+                    activityType.setText(activityString);
+                    activityTypeData = type;
+
+                    Log.d("johnmacdonald", activityType.getText().toString());
+                }
+            });*/
+
             String activityString = "Type: " + selectedType;
-            activityType.setText(activityString);
-            activityTypeData = type;
+            GPSActivity.getInstance().updateTheTextView(activityString);
         }
+    }
+
+    public String getGoverningActivity() {
+        String selectedType = "Deciding...";
+
+        if(standing > walking && standing > running) {
+            // choose standing
+            selectedType = "Standing";
+        }else if(walking > standing && walking > running) {
+            // choose standing
+            selectedType = "Walking";
+
+        } else if(running > standing && running > walking) {
+            // choose standing
+            selectedType = "Running";
+        }
+
+        return selectedType;
     }
 
     public class LocationReceiver extends BroadcastReceiver {
